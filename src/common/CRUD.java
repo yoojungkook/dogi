@@ -54,5 +54,5 @@ public abstract class CRUD<T> implements AutoCloseable{
      * @param t
      * @throws SQLException
      */
-    public abstract void delete(T t) throws SQLException;
+    public abstract void delete(int no) throws SQLException;
 }

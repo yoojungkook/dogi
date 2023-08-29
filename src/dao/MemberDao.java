@@ -21,7 +21,7 @@ public class MemberDao<T extends Member> extends CRUD<Member> {
     public void insert(Member member) throws SQLException {
         conn = db.conn();
 
-        sql = "INSERT INTO MEMBER(NO, ID, PWD, NAME, EMAIL, LOCATION_NO, FAVORITE_NO) VALUES (?, ?, ?, ?, ?, 5, 1)";
+        sql = "INSERT INTO MEMBERS(NO, ID, PWD, NAME, EMAIL, LOCATION_NO, FAVORITE_NO) VALUES (?, ?, ?, ?, ?, 5, 1)";
 
         ps = conn.prepareStatement(sql);
         ps.setInt(1, 10);
@@ -41,7 +41,7 @@ public class MemberDao<T extends Member> extends CRUD<Member> {
         conn = db.conn();
 
         if (args == null) {
-            sql = "SELECT * FROM MEMBER";
+            sql = "SELECT * FROM MEMBERS";
 
             ps = conn.prepareStatement(sql);
 
@@ -56,7 +56,7 @@ public class MemberDao<T extends Member> extends CRUD<Member> {
             return list;
         }
 
-        sql = "SELECT * FROM MEMBER WHERE ";
+        sql = "SELECT * FROM MEMBERS WHERE ";
 
         int cnt = args.size() - 1;
         for (Entry<String, String> entry : args.entrySet()) {
@@ -66,6 +66,8 @@ public class MemberDao<T extends Member> extends CRUD<Member> {
                 sql += entry.getKey() + " = \'" + entry.getValue() + "\'";
             cnt--;
         }
+
+        System.out.println(sql);
 
         ps = conn.prepareStatement(sql);
 
@@ -93,7 +95,7 @@ public class MemberDao<T extends Member> extends CRUD<Member> {
     }
 
     @Override
-    public void delete(Member member) throws SQLException {
+    public void delete(int no) throws SQLException {
 
     }
 

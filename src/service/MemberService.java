@@ -1,10 +1,8 @@
 package service;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.Scanner;
 
 import common.SERVICE;
@@ -23,27 +21,21 @@ public class MemberService extends SERVICE<Member> {
         System.out.println("MemberService 클래스 생성!");
     }
 
-    @Override
-    public boolean login(Properties prop) throws SQLException, IOException {
-        return false;
-    }
-
-    @Override
-    public boolean logout(Properties prop) throws SQLException, IOException {
-        return false;
-    }
-
     public void running(int num) {
-        try (MemberDao<Member> memberDao = (MemberDao<Member>)this.dao;){
+        /*
+         * dao는 한 번 사용하면 사라지는 객체가 아닌 try문이 끝나면
+         * CRUD의 close() 메소드가 자동적으로 작동하여 sql가 관련된 객체만을 소멸시킴
+         */
+        try (MemberDao<Member> memberDao = (MemberDao<Member>) this.dao;) {
             switch (num) {
                 case 1:
-                    son((MemberDao<Member>)memberDao);
+                    son((MemberDao<Member>) memberDao);
                     break;
                 case 2:
-                    members((MemberDao<Member>)memberDao);
+                    members((MemberDao<Member>) memberDao);
                     break;
                 case 3:
-                    memberUpdate((MemberDao<Member>)memberDao);
+                    memberUpdate((MemberDao<Member>) memberDao);
                     break;
             }
         } catch (SQLException e) {
@@ -63,7 +55,7 @@ public class MemberService extends SERVICE<Member> {
         System.out.print("새로운 지역번호 입력: ");
         int locationNo = sc.nextInt();
         member.setLocationNo(locationNo);
-        
+
         dao.update(new Member());
     }
 
